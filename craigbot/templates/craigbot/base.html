@@ -1,0 +1,76 @@
+{% load static %}
+{% load octicons %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CraigBot</title>
+  <!-- Bootstrap CDN -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</html>
+<!-- My Css Stylesheet -->
+<link href="{% static 'mystyle.css' %}" rel="stylesheet" />
+{% block head %} {% endblock head %}
+</head>
+<header>
+  <nav class="navbar navbar-fixed-top p-4 navbar-expand-lg navbar-dark bg-dark scrolling-navbar">
+    <a class="navbar-brand ml-5" href="/"><strong>Craigbot</strong></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      {% if user.is_authenticated %}
+      <ul class="navbar-nav ml-auto text-center">
+        <span class="navbar-text" style="color:#FFFFFF;">
+          Welcome, {{ user.get_username }}
+        </span>
+      </ul>
+      {% endif %}
+      <ul class="navbar-nav ml-auto text-right">
+        <li class="nav-item active">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item active">
+          {% if user.is_authenticated %}
+          <a class="nav-link" href="/logout"><span style="color:#FFFFFF;">
+              {% octicon "device-desktop" height="25" width="25" class="large"%}
+            </span>
+            Logout
+          </a>
+          {% else %}
+          <a class="nav-link" href="/login"><span style="color:#FFFFFF;">
+              {% octicon "device-desktop" height="25" width="25" class="large"%}
+            </span>
+            Login
+          </a>
+          {% endif %}
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+</header>
+<main>
+
+  <body>
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+      {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% block content %} {% endblock content %}
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    {% block page_scripts %} {% endblock page_scripts%}
+  </body>
+</main>
+
+</html>

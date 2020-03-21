@@ -1,0 +1,17 @@
+{% extends 'craigbot/base.html' %}
+{% load crispy_forms_tags %}
+{% block content  %}
+<div class="jumbotron jumbotron-fluid text-center bg-secondary padding-lg">
+
+  <!-- Title -->
+  <h2 class="card-title h2">{{ user.get_username }}'s Homepage</h2>
+
+  <!-- Subtitle -->
+  <p class="font-weight-bold">An army of Craigbots at your disposal</p>
+
+  <button class="btn blue-gradient btn-rounded" onclick="window.location.href = '/createnewbot';">Create New Bot<i class="far fa-gem ml-1"></i></button>
+
+  <button class="btn btn-indigo btn-rounded" onclick="window.location.href = '/view_bots';">View Existing Bots<i class="fas fa-download ml-1"></i></button>
+
+</div>
+{% endblock content %}

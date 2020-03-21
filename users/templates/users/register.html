@@ -1,0 +1,27 @@
+{% extends 'craigbot/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <div class="card w-50">
+            <div class="card-header text-center">
+                <h3>Register for CraigBot</h3>
+            </div>
+            <div class = "card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="content-section">
+                      <fieldset class="form-group">
+                            {{ form|crispy }}
+                      </fieldset>
+                        <div class="form-group">
+                            <button class="btn login-btn btn-primary" value="Submit">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,35 @@
+@charset "UTF-8";
+/* CSS Document */
+    /* .jumbotron{
+    background-color: #68B5F2
+    } */
+    .octicon{
+    display: inline-block;
+    vertical-align: text-top;
+        fill: currentColor;
+    }
+
+    .vertical-center{
+    min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+    min-height: 100vh; /* These two lines are counted as one :-)       */
+
+    display: flex;
+    align-items: center;
+    }
+
+    .mt-0 {
+  margin-top: 0 !important;
+}
+
+.ml-1 {
+  margin-left: ($spacer * .25) !important;
+}
+
+.px-2 {
+  padding-left: ($spacer * .5) !important;
+  padding-right: ($spacer * .5) !important;
+}
+
+.p-3 {
+  padding: $spacer !important;
+}

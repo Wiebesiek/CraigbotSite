@@ -1,0 +1,59 @@
+{% extends 'craigbot/base.html' %}
+{% load crispy_forms_tags %}
+{% load octicons %}
+{% block content  %}
+<div class="alert" id="ajax">
+
+</div>
+{% for bot in bots %}
+<div class="d-flex justify-content-center mb-4">
+<div class="card w-50 justify-content-center" data-id="{{ bot.bot_id }}">
+    <div class="card-body bg-light">
+        <!-- Title -->
+        <h5 class="pb-2 pt-1 text-center">{{ bot.search_query }} </h5>
+        <h6 class="pb-2 pt-1 text-center"> Date Created: {{ bot.date_created }}</h6>
+    </div>
+    <div class="card-footer">
+        <div class="d-flex justify-content-center">
+            <input type="submit" value="Edit" onclick="window.location.href = 'edit/{{ bot.bot_id }}'" class="btn btn-primary mr-5 btn-sm" style="width:55px">
+            <input type="button" value="Delete" onclick="deleteBot($(this))"class="btn btn-primary btn-sm">
+        </div>
+    </div>
+</div>
+</div>
+{% endfor %}
+{% endblock content %}
+{% block page_scripts %}
+<script type="text/javascript">
+<!--  This function is working correctly-->
+  function dataPrint(item) {
+  let to_print = item.parent().parent().parent().attr('data-id');
+  alert(to_print);
+};
+  function deleteBot(bot) {
+  let bot_number = bot.parent().parent().parent().attr('data-id');
+  let confirmation = confirm(`Are you sure you want to remove this bot? ${bot_number}`);
+  if(confirmation){
+    $.ajax({
+      url: "ajax/delete_bot",
+      data: {
+        'csrfmiddlewaretoken': "{{ csrf_token }}",
+        'bot_id' : bot_number
+      },
+      type: "POST",
+      success: function(data){showPopupMessage(data.msg);
+        bot.parent().parent().parent().parent().empty();},
+    })
+  }
+};
+
+function showPopupMessage(content) {
+    let elMessages = $("#ajax");
+    if (elMessages.length && content) {
+        elMessages.html(content);
+    }
+};
+
+
+</script>
+{% endblock page_scripts %}
